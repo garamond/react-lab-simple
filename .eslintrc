@@ -1,0 +1,10 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "globals": {
+    "document": true
+  },
+  "rules": {
+    "react/prefer-stateless-function": 1
+  }
+}
