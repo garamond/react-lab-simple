@@ -2,8 +2,8 @@
   "name": "react-lab-simple",
   "version": "0.0.0",
   "scripts": {
-    "dist": "npm run lint && npm run test && NODE_ENV=production webpack -p",
-    "start": "webpack-dev-server --inline",
+    "dist": "npm run lint && npm run test && webpack -p",
+    "start": "babel-node server.js",
     "lint": "eslint --ext .jsx .",
     "test": "mocha --require test-helper.js *.spec.jsx"
   },
@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "babel-core": "*",
+    "babel-cli": "*",
     "babel-loader": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
