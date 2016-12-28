@@ -1,39 +1,32 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from './webpack.config';
+import path from 'path';
 
-import Schema from './schema';
-import { graphql } from 'graphql';
-import bodyParser from 'body-parser';
+import express from 'express';
+import graphQLHTTP from 'express-graphql';
 
-const {
-  NODE_ENV,
-  PORT = "3000"
-} = process.env;
+import schema from './schema';
 
-config.entry.unshift(`webpack-dev-server/client?http://localhost:${PORT}/`);
+const APP_PORT = 3000;
+const GRAPHQL_PORT = 8080;
+
+// Expose a GraphQL endpoint
+const graphQLServer = express();
+graphQLServer.use('/', graphQLHTTP({ schema, graphiql: true, pretty: true}));
+graphQLServer.listen(GRAPHQL_PORT, () => console.log(
+  `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`
+));
+
+config.entry.unshift(`webpack-dev-server/client?http://localhost:${APP_PORT}/`);
 const compiler = webpack(config);
 
-const devServer = new WebpackDevServer(compiler, {
-  setup(app) {
-    app.use(bodyParser.json());
-    app.use((req, res, next) => {
-      if(req.url === '/graphql' && req.method === "POST") {
-        // Executing the GraphQL query
-        const {query, variables} = req.body;
-        graphql(Schema, query, null, variables).then(result => {
-          res.send(result);
-        });
-      } else {
-        next();
-      }
-    });
-  }
+const app = new WebpackDevServer(compiler, {
+  proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
 });
 
-devServer.listen(PORT, (err, result) => {
-  if(err) {
-    throw err;
-  }
-  console.log(`Listening on localhost:${PORT}`);
+// Serve static resources
+app.use('/', express.static(path.resolve(__dirname)));
+app.listen(APP_PORT, () => {
+  console.log(`App is now running on http://localhost:${APP_PORT}`);
 });

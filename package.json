@@ -8,10 +8,6 @@
     "test": "mocha --require test-helper.js *.spec.jsx"
   },
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "graphiql": "^0.8.0",
-    "graphql": "^0.8.2",
-    "isomorphic-fetch": "^2.2.1",
     "react": "*",
     "react-dom": "*"
   },
@@ -31,6 +27,8 @@
     "eslint-plugin-import": "*",
     "eslint-plugin-jsx-a11y": "^2.0.0",
     "eslint-plugin-react": "*",
+    "express": "^4.14.0",
+    "express-graphql": "^0.6.1",
     "file-loader": "*",
     "flow-bin": "*",
     "jsdom": "*",
