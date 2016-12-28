@@ -1,4 +1,17 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["transform-flow-strip-types"]
+  "passPerPreset": true,
+  "plugins": [
+    "transform-runtime",
+    "transform-flow-strip-types"
+  ],
+  "presets": [
+    {
+      "plugins": [
+        "./babelRelayPlugin"
+      ]
+    },
+    "react",
+    "es2015",
+    "stage-0"
+  ]
 }

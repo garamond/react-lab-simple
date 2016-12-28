@@ -1,62 +1,59 @@
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+'use strict';
+
 import {
-  GraphQLSchema,
   GraphQLObjectType,
+  GraphQLSchema,
   GraphQLString,
-  GraphQLList,
-  GraphQLNonNull
 } from 'graphql';
 
-// In memory data store
-const TodoStore = [
-  "Learn some GraphQL",
-  "Build a sample app"
-];
+const GREETINGS = {
+  hello: 'Hello, world!',
+};
 
-// Root level queries
-const TodosQuery = new GraphQLObjectType({
-  name: "TodosQuery",
+/**
+ * Objects.
+ * Build up a portrait of your data universe
+ * using the object type. Here, we define a
+ * type of object that has a 'hello' field
+ * that is of the string type.
+ */
+const GreetingsType = new GraphQLObjectType({
+  name: 'Greetings',
   fields: () => ({
-    items: {
-      type: new GraphQLList(GraphQLString),
-      description: "List of todo items",
-      resolve() {
-        // close and send
-        return TodoStore.concat([]);
-      }
-    }
-  })
+    hello: {type: GraphQLString},
+  }),
 });
 
-// Mutations
-const TodosMutations = new GraphQLObjectType({
-  name: 'TodosMutations',
-  fields: () => ({
-    addItem: {
-      type: GraphQLString,
-      description: "Add a new todo item",
-      args: {
-        item: {
-          type: new GraphQLNonNull(GraphQLString)
-        }
+/**
+ * The schema.
+ * Here we export a schema that offers one root
+ * field named 'greetings', and a method to
+ * resolve its data.
+ *
+ * To learn more about writing GraphQL schemas for Relay, visit:
+ *   https://github.com/graphql/graphql-relay-js
+ */
+export default new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'Query',
+    fields: () => ({
+      greetings: {
+        type: GreetingsType,
+        // Here we define a resolver that returns
+        // the data defined above. Were this schema
+        // executing on the server side, you could
+        // write a resolve method that fetches
+        // live data from a database.
+        resolve: () => GREETINGS,
       },
-      resolve(parent, {item}) {
-        if(TodoStore.length >= 10) {
-          // Remove the third time by keeping the first two
-          TodoStore.splice(2, 1);
-        }
-        
-        TodoStore.push(item);
-        return item;
-      }
-    }
-  })
+    }),
+  }),
 });
-
-// Schema
-const TodosSchema = new GraphQLSchema({
-  name: "TodosSchema",
-  query: TodosQuery,
-  mutation: TodosMutations
-});
-
-export default TodosSchema;
