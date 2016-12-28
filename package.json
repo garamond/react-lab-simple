@@ -26,6 +26,7 @@
     "babel-preset-stage-0": "*",
     "babel-relay-plugin": "*",
     "chai": "*",
+    "chokidar": "^1.6.1",
     "css-loader": "*",
     "enzyme": "*",
     "eslint": "*",
