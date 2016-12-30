@@ -1,7 +1,9 @@
-type Greetings {
-  hello: String
+type Query {
+  user(id: Int!): User
 }
 
-type Query {
-  greetings: Greetings
+type User {
+  id: Int
+  name: String
+  friends: [User]
 }

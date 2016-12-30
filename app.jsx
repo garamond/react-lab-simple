@@ -7,17 +7,23 @@ import Relay from 'react-relay';
 
 class HelloApp extends React.Component {
   render() {
-    const {hello} = this.props.greetings;
-    return <h1>{hello}</h1>;
+    const {name, friends=[]} = this.props.user;
+    console.log('this.props.user', this.props.user);
+    return (
+      <div>
+        <h1>{name}</h1>
+      </div>
+    );
   }
 }
 
 
 HelloApp = Relay.createContainer(HelloApp, {
   fragments: {
-    greetings: () => Relay.QL`
-      fragment on Greetings {
-        hello,
+    user: () => Relay.QL`
+      fragment on User {
+        name
+        id
       }
     `,
   },
@@ -26,9 +32,9 @@ HelloApp = Relay.createContainer(HelloApp, {
 class HelloRoute extends Relay.Route {
   static routeName = 'Hello';
   static queries = {
-    greetings: () => Relay.QL`
+    user: () => Relay.QL`
       query {
-        greetings
+        user(id: $id)
       }
     `,
   };
@@ -38,7 +44,7 @@ class HelloRoute extends Relay.Route {
 ReactDOM.render(
   <Relay.RootContainer
     Component={HelloApp}
-    route={new HelloRoute()}
+    route={new HelloRoute({ id: 1 })}
   />,
   document.getElementById('app')
 );
