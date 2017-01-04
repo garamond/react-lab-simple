@@ -5,25 +5,38 @@ import ReactDOM from 'react-dom';
 
 import Relay from 'react-relay';
 
+
 class HelloApp extends React.Component {
   render() {
-    const {name, friends=[]} = this.props.user;
-    console.log('this.props.user', this.props.user);
+    const viewer = this.props.viewer;
     return (
       <div>
-        <h1>{name}</h1>
+        <h1>{ viewer.user.name }</h1>
+        <ul>
+          { viewer.user.friends.map(f => <li key={f.name}>{ f.name }</li>) }
+        </ul>
+        <input type="text" 
+               value={ this.props.relay.variables.uid }
+               onChange={ (e) => this.props.relay.setVariables({ uid: +e.target.value })} 
+        />
       </div>
     );
   }
 }
 
-
 HelloApp = Relay.createContainer(HelloApp, {
+  initialVariables: {
+    uid: 1
+  },
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        name
-        id
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        user(uid: $uid) {
+          name
+          friends {
+            name
+          }
+        }
       }
     `,
   },
@@ -32,19 +45,18 @@ HelloApp = Relay.createContainer(HelloApp, {
 class HelloRoute extends Relay.Route {
   static routeName = 'Hello';
   static queries = {
-    user: () => Relay.QL`
-      query {
-        user(id: $id)
+    viewer: () => Relay.QL`
+      query ProfileQuery {
+        viewer
       }
     `,
   };
 }
 
-
 ReactDOM.render(
   <Relay.RootContainer
     Component={HelloApp}
-    route={new HelloRoute({ id: 1 })}
+    route={new HelloRoute()}
   />,
   document.getElementById('app')
 );

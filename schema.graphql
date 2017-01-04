@@ -1,9 +1,13 @@
 type Query {
-  user(id: Int!): User
+  viewer: Viewer
 }
 
 type User {
-  id: Int
+  uid: Int
   name: String
   friends: [User]
+}
+
+type Viewer {
+  user(uid: Int!): User
 }

@@ -14,11 +14,26 @@ import {
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
-    id: { type: GraphQLInt },
+    uid: { type: GraphQLInt },
     name: { type: GraphQLString },
     friends: {
       type: new GraphQLList(UserType),
-      resolve: ({ id }) => getFriends(id)
+      resolve: ({ uid }) => getFriends(uid)
+    }
+  }),
+});
+
+const ViewerType = new GraphQLObjectType({
+  name: 'Viewer',
+  fields: () => ({
+    user: {
+      type: UserType,
+      args: {
+        uid: {
+          type: new GraphQLNonNull(GraphQLInt)
+        }
+      },
+      resolve: (_, { uid }) => getUser(uid)
     }
   }),
 });
@@ -26,14 +41,9 @@ const UserType = new GraphQLObjectType({
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    user: {
-      type: UserType,
-      args: {
-        id: {
-          type: new GraphQLNonNull(GraphQLInt)
-        }
-      },
-      resolve: (_, { id }) => getUser(id)
+    viewer: {
+      type: ViewerType,
+      resolve: () => ({viewer: {}})
     }
   })
 })

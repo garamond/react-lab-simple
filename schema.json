@@ -13,11 +13,34 @@
           "description": null,
           "fields": [
             {
+              "name": "viewer",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Viewer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Viewer",
+          "description": null,
+          "fields": [
+            {
               "name": "user",
               "description": null,
               "args": [
                 {
-                  "name": "id",
+                  "name": "uid",
                   "description": null,
                   "type": {
                     "kind": "NON_NULL",
@@ -61,7 +84,7 @@
           "description": null,
           "fields": [
             {
-              "name": "id",
+              "name": "uid",
               "description": null,
               "args": [],
               "type": {
