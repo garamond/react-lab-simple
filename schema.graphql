@@ -10,4 +10,5 @@ type User {
 
 type Viewer {
   user(uid: Int!): User
+  users: [User]
 }

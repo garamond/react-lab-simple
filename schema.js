@@ -1,6 +1,6 @@
 'use strict';
 
-import { getUser, getFriends } from './database'
+import { getUser, getUsers, getFriends } from './database'
 
 import {
   GraphQLObjectType,
@@ -23,6 +23,9 @@ const UserType = new GraphQLObjectType({
   }),
 });
 
+/**
+ * Wrapper for auth
+ */
 const ViewerType = new GraphQLObjectType({
   name: 'Viewer',
   fields: () => ({
@@ -34,10 +37,17 @@ const ViewerType = new GraphQLObjectType({
         }
       },
       resolve: (_, { uid }) => getUser(uid)
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve: () => getUsers()
     }
   }),
 });
 
+/**
+ * Root query
+ */
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
