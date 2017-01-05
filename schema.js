@@ -1,6 +1,6 @@
 'use strict';
 
-import { getUser, getUsers, getFriends } from './database'
+import { getUser, getUsers, getViewer, getPet, getPets, getFriends } from './database'
 
 import {
   GraphQLObjectType,
@@ -8,8 +8,54 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLInt,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLID
 } from 'graphql';
+
+import {
+  connectionArgs,
+  connectionDefinitions,
+  connectionFromArray,
+  fromGlobalId,
+  globalIdField,
+  mutationWithClientMutationId,
+  nodeDefinitions,
+} from 'graphql-relay';
+
+var {nodeInterface, nodeField} = nodeDefinitions(
+  (globalId) => {
+    var {type, id} = fromGlobalId(globalId);
+    if (type === 'Viewer') {
+      return getViewer(id);
+    } if (type === 'Pet') {
+      return getPet(id);
+    } else {
+      return null;
+    }
+  },
+  (obj) => {
+    if (obj.viewer) {
+      return ViewerType;
+    } if (obj.pet) {
+      return PetType;
+    } else {
+      return null;
+    }
+  }
+);
+const PetType = new GraphQLObjectType({
+  name: 'Pet',
+  fields: () => ({
+    id: globalIdField('Pet', o => o.pid),
+    pid: { type: GraphQLInt },
+    name: { type: GraphQLString },
+    type: { type: GraphQLString }
+  }),
+  interfaces: [nodeInterface],
+});
+
+var {connectionType: petConnection} =
+  connectionDefinitions({nodeType: PetType});
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -19,6 +65,13 @@ const UserType = new GraphQLObjectType({
     friends: {
       type: new GraphQLList(UserType),
       resolve: ({ uid }) => getFriends(uid)
+    },
+    pets: {
+      type: petConnection,
+      args: connectionArgs,
+      resolve: (obj, args) => {
+        return connectionFromArray(getPets(obj.uid), args)
+      }
     }
   }),
 });
@@ -29,6 +82,9 @@ const UserType = new GraphQLObjectType({
 const ViewerType = new GraphQLObjectType({
   name: 'Viewer',
   fields: () => ({
+    name: {
+      type: GraphQLString
+    },
     user: {
       type: UserType,
       args: {
@@ -51,9 +107,10 @@ const ViewerType = new GraphQLObjectType({
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
+    node: nodeField,
     viewer: {
       type: ViewerType,
-      resolve: () => ({viewer: {}})
+      resolve: () => getViewer(42)
     }
   })
 })
