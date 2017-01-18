@@ -23,4 +23,4 @@ export const getUsers = () => Object.values(users)
 
 export const getFriends = (uid) => getUser(uid).friendIDs.map(getUser)
 
-export const getViewer = (id) => ({ id, name: 'Hans Muster', viewer: true })
+export const getViewer = () => ({ id: 0, name: 'Hans Muster', viewer: true })

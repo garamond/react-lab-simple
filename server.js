@@ -4,7 +4,8 @@ import config from './webpack.config';
 import path from 'path';
 
 import express from 'express';
-import koa from 'koa';
+import Koa from 'koa';
+import convert from 'koa-convert';
 import mount from 'koa-mount';
 import graphQLHTTP from 'koa-graphql';
 
@@ -14,9 +15,9 @@ const APP_PORT = 3000;
 const GRAPHQL_PORT = 8080;
 
 // Expose a GraphQL endpoint
-const graphQLServer = koa();
+const graphQLServer = new Koa();
 //graphQLServer.use('/', graphQLHTTP({ schema, graphiql: true, pretty: true}));
-graphQLServer.use(mount('/', graphQLHTTP({ schema, graphiql: true, pretty: true })));
+graphQLServer.use(mount('/', convert(graphQLHTTP({ schema, graphiql: true, pretty: true }))));
 
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(
   `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`

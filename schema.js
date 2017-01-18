@@ -34,9 +34,9 @@ var {nodeInterface, nodeField} = nodeDefinitions(
     }
   },
   (obj) => {
-    if (obj.viewer) {
+    if (obj.id===0) {
       return ViewerType;
-    } if (obj.pet) {
+    } if (obj.pid) {
       return PetType;
     } else {
       return null;
@@ -110,7 +110,7 @@ const QueryType = new GraphQLObjectType({
     node: nodeField,
     viewer: {
       type: ViewerType,
-      resolve: () => getViewer(42)
+      resolve: () => getViewer()
     }
   })
 })

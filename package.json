@@ -9,12 +9,11 @@
     "update-schema": "babel-node ./updateSchema.js"
   },
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.15.0",
     "graphql": "^0.8.2",
     "graphql-relay": "^0.4.4",
-    "koa": "^1.0.0",
+    "koa": "^2.0.0",
     "koa-graphql": "^0.6.0",
-    "koa-mount": "^1.0.0",
+    "koa-mount": "^2.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-relay": "^0.10.0"

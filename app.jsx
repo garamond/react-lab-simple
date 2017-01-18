@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 
 let UserButton = (props) =>
-  <button onClick={ () => alert(`User has ID ${props.user.uid}`)}>Alert!</button>
+  <button onClick={ () => alert(`User has ID ${props.user.uid}`) }>Show ID</button>
 UserButton = Relay.createContainer(UserButton, {
   fragments: {
     user: () => Relay.QL`
@@ -50,7 +50,7 @@ UserInfo = Relay.createContainer(UserInfo, {
 })
 
 let ProfileViewer = (props) =>
-  console.log(props) || <div>
+  <div>
     <select value={ props.relay.variables.uid }
             onChange={ (e) => props.relay.setVariables({ uid: +e.target.value })}>
       { props.viewer.users.map(u => <option key={u.uid} value={u.uid}>{u.name}</option> ) }
