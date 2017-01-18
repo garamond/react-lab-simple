@@ -29,15 +29,19 @@ var {nodeInterface, nodeField} = nodeDefinitions(
       return getViewer(id);
     } if (type === 'Pet') {
       return getPet(id);
+    } if (type === 'User') {
+      return getUser(id);
     } else {
       return null;
     }
   },
   (obj) => {
-    if (obj.id===0) {
+    if (obj.vid) {
       return ViewerType;
     } if (obj.pid) {
       return PetType;
+    } if (obj.uid) {
+      return UserType;
     } else {
       return null;
     }
