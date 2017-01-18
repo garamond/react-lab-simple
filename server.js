@@ -3,7 +3,6 @@ import WebpackDevServer from 'webpack-dev-server';
 import config from './webpack.config';
 import path from 'path';
 
-import express from 'express';
 import Koa from 'koa';
 import convert from 'koa-convert';
 import mount from 'koa-mount';
