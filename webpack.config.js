@@ -9,11 +9,15 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    modules: [
+      './node_modules',
+      './module-a/node_modules'
+    ]
   },
   module: {
-    loaders: [
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel' },
+    rules: [
+      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.(png|jpg)$/, loader: 'url?limit=8192' }
     ]
