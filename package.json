@@ -2,6 +2,7 @@
   "name": "react-lab-simple",
   "version": "0.0.0",
   "scripts": {
+    "prepublish": "cd module-a && npm link && cd .. && npm link module-a",
     "dist": "npm run lint && npm run test && NODE_ENV=production webpack -p",
     "start": "babel-node --presets es2015 server.js",
     "lint": "eslint --fix --ext .jsx .",
