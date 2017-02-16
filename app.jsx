@@ -9,7 +9,7 @@ class App extends React.PureComponent {
   render() {
     return (
       <div>
-        <div>{ _.VERSION }</div>
+        <div>lodash in app: { _.VERSION }</div>
         <A />
       </div>
     );

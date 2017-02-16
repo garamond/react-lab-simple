@@ -7,7 +7,7 @@ export default class A extends React.Component {
   render() {
     return (
       <div>
-        <div>{ _.VERSION }</div>
+        <div>lodash in module-a: { _.VERSION }</div>
       </div>
     );
   }
