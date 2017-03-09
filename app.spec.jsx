@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-describe('test', () => {
+describe('testing', () => {
 
   it('works', () => {
     expect(1 + 1).to.equal(2)

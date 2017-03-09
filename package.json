@@ -2,7 +2,7 @@
   "name": "react-lab-simple",
   "version": "0.0.0",
   "scripts": {
-    "dist": " npm run lint && npm run test && NODE_ENV=production webpack -p",
+    "dist": "NODE_ENV=production webpack -p",
     "start": "babel-node server.js",
     "lint": "eslint --ext .jsx .",
     "test": "mocha --require test-helper.js *.spec.jsx"
