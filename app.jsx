@@ -3,6 +3,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import R from 'ramda';
 import 'glamor/reset';
 import { styled } from 'glamor/styled'
 

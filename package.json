@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "glamor": "^2.20.24",
+    "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
