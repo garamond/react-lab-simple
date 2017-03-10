@@ -3,7 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/app.jsx'],
+  entry: ['./src/app.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
@@ -11,11 +11,11 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.tsx']
   },
   module: {
     rules: [
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['babel-loader', 'ts-loader'] },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.(png|jpg)$/, loader: 'url?limit=8192' }
     ]

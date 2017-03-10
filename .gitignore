@@ -1,5 +1,3 @@
 node_modules
-bundle.js
+dist
 npm-debug.log
-
-*.map
