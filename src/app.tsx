@@ -2,24 +2,25 @@ import * as React from "react";
 import { render } from "react-dom";
 
 import "glamor/reset";
-import { styled } from "glamor/styled";
-import R from "ramda";
+import { css } from "glamor";
 
-const Main = styled.div`
+const appStyle = css`
   color: white;
-  background-color: coral;
+  background-color: green;
   width: 100vw;
   height: 100vh;
 `;
 
-class App extends React.PureComponent<any, any> {
+class App extends React.PureComponent<undefined, undefined> {
+
   public render() {
     return (
-      <Main>
+      <div {...appStyle}>
         Hello, World!
-      </Main>
+      </div>
     );
   }
+
 }
 
 render(<App />, document.getElementById("app"));

@@ -11,11 +11,11 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
   module: {
     rules: [
-      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['babel-loader', 'ts-loader'] },
+      { test: /\.tsx?$/, exclude: /node_modules/, loaders: ['babel-loader', 'ts-loader'] },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.(png|jpg)$/, loader: 'url?limit=8192' }
     ]
