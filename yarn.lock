@@ -8,6 +8,14 @@
   version "2.2.39"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.39.tgz#f68d63db8b69c38e9558b4073525cf96c4f7a829"
 
+"@types/node@^7.0.8":
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.8.tgz#25e4dd804b630c916ae671233e6d71f6ce18124a"
+
+"@types/ramda@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.0.4.tgz#4921b5f72c28dc5ddad4b1d2e27f9ce1e42949f6"
+
 "@types/react-dom@^0.14.23":
   version "0.14.23"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.23.tgz#cecfcfad754b4c2765fe5d29b81b301889ad6c2e"

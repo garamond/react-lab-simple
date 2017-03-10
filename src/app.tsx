@@ -1,8 +1,8 @@
 import * as React from "react";
 import { render } from "react-dom";
 
-import "glamor/reset";
 import { css } from "glamor";
+import "glamor/reset";
 
 const appStyle = css`
   color: white;
