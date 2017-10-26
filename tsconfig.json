@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "module": "es6",
-    "target": "es6",
-    "moduleResolution": "node",
-    "baseUrl": "src",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "build",
     "sourceMap": true,
-    "outDir": "ts-build",
-    "jsx": "preserve"
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+    "jsx": "react",
+    "lib": [
+      "es2015",
+      "dom"
+    ]
   },
   "include": [
-    "./src"
+    "src/**/*"
   ]
 }
